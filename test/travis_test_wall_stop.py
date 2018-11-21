@@ -3,10 +3,16 @@ import unittest, rostest
 import rosnode, rospy
 import time
 
+import commands
+
 class WallStopTest(unittest.TestCase):
     def set_and_get(self,lf,ls,rs,rf):
-        with open("/dev/rtlightsensor0","w") as f:
-            f.write("%d %d %d %d\n" % (rf,rs,ls,lf))
+        # with open("/dev/rtlightsensor0","w") as f:
+            # f.write("%d %d %d %d\n" % (rf,rs,ls,lf))
+            # f.write("%d %d %d %d 0\n" % (rf,rs,ls,lf))
+
+        commands.getoutput('echo {0} {1} {2} {3} 0 > /dev/rtlightsensor0'.format(rf,rs,ls,lf))
+
 
         time.sleep(0.3)
 
